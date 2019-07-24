@@ -37,6 +37,11 @@ dependencies {
     def ktx_version = "1.0.2"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha02"
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.fragment:fragment-ktx:1.2.0-alpha01"
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
