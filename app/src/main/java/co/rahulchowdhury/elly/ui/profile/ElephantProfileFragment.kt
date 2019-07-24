@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.SavedStateViewModelFactory
+import co.rahulchowdhury.elly.ElephantApp
 import co.rahulchowdhury.elly.R
+import javax.inject.Inject
 
 class ElephantProfileFragment : Fragment() {
+    @Inject
+    lateinit var elephantProfileViewModelFactory: ElephantProfileViewModelFactory
+
     private val viewModel: ElephantProfileViewModel by viewModels(
-        factoryProducer = { SavedStateViewModelFactory(this) }
+        factoryProducer = { elephantProfileViewModelFactory }
     )
 
     override fun onCreateView(
@@ -24,6 +28,12 @@ class ElephantProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val elephantApp = activity?.application as ElephantApp
+
+//        elephantApp.appComponent
+//            .plusElephantComponent()
+//            .inject(this)
 
         viewModel.elephant.observe(this, Observer {
 
