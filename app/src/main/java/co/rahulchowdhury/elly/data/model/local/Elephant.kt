@@ -1,4 +1,4 @@
-package co.rahulchowdhury.elly.data.model
+package co.rahulchowdhury.elly.data.model.local
 
 data class Elephant(
     private val id: String,
@@ -6,10 +6,10 @@ data class Elephant(
     private val affiliation: String,
     private val species: String,
     private val sex: String,
-    private val fictional: String,
-    private val dob: String,
-    private val dod: String,
-    private val wikilink: String,
+    private val isFictional: Boolean,
+    private val dateOfBirth: String,
+    private val dateOfDeath: String,
+    private val wikiLink: String,
     private val image: String,
     private val note: String
 )

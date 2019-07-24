@@ -34,7 +34,9 @@ dependencies {
 
     // Architecture components
     def lifecycle_version = "2.0.0"
+    def ktx_version = "1.0.2"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.core:core-ktx:1.0.2"
+    implementation "androidx.core:core-ktx:$ktx_version"
+    implementation "androidx.fragment:fragment-ktx:1.2.0-alpha01"
 }
