@@ -7,6 +7,6 @@ import javax.inject.Singleton
 
 @Singleton
 @Subcomponent(modules = [NetworkModule::class])
-internal interface ElephantComponent {
+interface ElephantComponent {
     fun inject(elephantProfileFragment: ElephantProfileFragment)
 }

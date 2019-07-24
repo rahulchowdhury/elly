@@ -9,4 +9,6 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent {
     fun inject(application: Application)
+
+    fun plusElephantComponent(): ElephantComponent
 }
