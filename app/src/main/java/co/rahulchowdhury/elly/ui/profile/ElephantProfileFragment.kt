@@ -1,11 +1,11 @@
 package co.rahulchowdhury.elly.ui.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import co.rahulchowdhury.elly.ElephantApp
 import co.rahulchowdhury.elly.R
@@ -13,11 +13,7 @@ import javax.inject.Inject
 
 class ElephantProfileFragment : Fragment() {
     @Inject
-    lateinit var elephantProfileViewModelFactory: ElephantProfileViewModelFactory
-
-    private val viewModel: ElephantProfileViewModel by viewModels(
-        factoryProducer = { elephantProfileViewModelFactory }
-    )
+    lateinit var viewModel: ElephantProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +27,12 @@ class ElephantProfileFragment : Fragment() {
 
         val elephantApp = activity?.application as ElephantApp
 
-//        elephantApp.appComponent
-//            .plusElephantComponent()
-//            .inject(this)
+        elephantApp.appComponent
+            .plusElephantComponent()
+            .inject(this)
 
         viewModel.elephant.observe(this, Observer {
-
+            Log.d("EProf", it.toString())
         })
     }
 }

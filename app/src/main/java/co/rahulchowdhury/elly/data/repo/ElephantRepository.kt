@@ -27,7 +27,6 @@ class ElephantRepository @Inject constructor(
 
                     elephantResponse?.let {
                         elephantData.value = Elephant(
-                            id = it.id,
                             name = it.name,
                             affiliation = it.affiliation,
                             species = it.species,
