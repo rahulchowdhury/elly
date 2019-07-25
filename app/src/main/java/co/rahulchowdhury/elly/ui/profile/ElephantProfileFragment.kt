@@ -1,7 +1,6 @@
 package co.rahulchowdhury.elly.ui.profile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,9 +23,8 @@ class ElephantProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        elephantProfileViewModel.elephant.observe(this, Observer {
-            Log.d("EProf", it.toString())
-            apiResponse?.text = it.toString()
+        elephantProfileViewModel.elephant.observe(viewLifecycleOwner, Observer {
+            apiResponse?.text = "$it:${elephantProfileViewModel.elephant}"
         })
     }
 }
