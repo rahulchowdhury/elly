@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel
 import co.rahulchowdhury.elly.data.model.local.Elephant
 import co.rahulchowdhury.elly.data.repo.ElephantRepository
 
-class ElephantProfileViewModel(
-    elephantRepository: ElephantRepository
-) : ViewModel() {
+class ElephantProfileViewModel(elephantRepository: ElephantRepository) : ViewModel() {
+
     private val elephantName: String = "Arjuna"
-    val elephant: LiveData<Elephant> = elephantRepository.getElephant(elephantName)
+    val elephant: LiveData<Elephant>
+
+    init {
+        elephant = elephantRepository.getElephant(elephantName)
+    }
 }
