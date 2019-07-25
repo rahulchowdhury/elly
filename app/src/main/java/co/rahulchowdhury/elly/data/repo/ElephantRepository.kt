@@ -8,9 +8,8 @@ import co.rahulchowdhury.elly.data.source.remote.elephant.ElephantApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import javax.inject.Inject
 
-class ElephantRepository @Inject constructor(
+class ElephantRepository(
     private val elephantApiService: ElephantApiService
 ) {
     fun getElephant(elephantName: String): LiveData<Elephant> {

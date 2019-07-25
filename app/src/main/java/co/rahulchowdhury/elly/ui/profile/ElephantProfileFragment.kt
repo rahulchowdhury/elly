@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import co.rahulchowdhury.elly.ElephantApp
 import co.rahulchowdhury.elly.R
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.elephant_profile_fragment.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ElephantProfileFragment : Fragment() {
-    @Inject
-    lateinit var viewModel: ElephantProfileViewModel
+    private val elephantProfileViewModel: ElephantProfileViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,14 +24,9 @@ class ElephantProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val elephantApp = activity?.application as ElephantApp
-
-        elephantApp.appComponent
-            .plusElephantComponent()
-            .inject(this)
-
-        viewModel.elephant.observe(this, Observer {
+        elephantProfileViewModel.elephant.observe(this, Observer {
             Log.d("EProf", it.toString())
+            apiResponse?.text = it.toString()
         })
     }
 }
