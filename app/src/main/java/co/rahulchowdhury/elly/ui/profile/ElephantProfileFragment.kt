@@ -33,6 +33,6 @@ class ElephantProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        elephantProfileViewModel.loadElephantProfile("Batyr")
+        elephantProfileViewModel.loadElephantProfile("Arjuna")
     }
 }

@@ -14,4 +14,7 @@ interface ElephantDao {
 
     @Query("SELECT * FROM elephants WHERE name = :elephantName")
     fun load(elephantName: String): LiveData<Elephant>
+
+    @Query("SELECT * FROM elephants WHERE name = :elephantName")
+    fun hasElephant(elephantName: String): Elephant?
 }
