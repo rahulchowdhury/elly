@@ -10,10 +10,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val elephantProfileFragment = ElephantProfileFragment()
-
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragmentContainer, elephantProfileFragment)
-            .commit()
+        if (savedInstanceState == null) {
+            val elephantProfileFragment = ElephantProfileFragment()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentContainer, elephantProfileFragment)
+                .commit()
+        }
     }
 }
