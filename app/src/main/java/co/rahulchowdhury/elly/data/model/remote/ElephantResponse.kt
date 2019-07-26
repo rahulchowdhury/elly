@@ -16,19 +16,20 @@ data class ElephantResponse(
     val wikilink: String,
     val image: String,
     val note: String
-) {
-    fun toElephant() =
-        Elephant(
-            id = id,
-            name = name,
-            affiliation = affiliation,
-            species = species,
-            sex = sex,
-            isFictional = fictional.toBoolean(),
-            dateOfBirth = dob,
-            dateOfDeath = dod,
-            wikiLink = wikilink,
-            image = image,
-            note = note
-        )
-}
+)
+
+fun ElephantResponse.toElephant() =
+    Elephant(
+        id = id,
+        name = name,
+        affiliation = affiliation,
+        species = species,
+        sex = sex,
+        isFictional = fictional.toBoolean(),
+        dateOfBirth = dob,
+        dateOfDeath = dod,
+        wikiLink = wikilink,
+        image = image,
+        note = note,
+        lastFetchTime = System.currentTimeMillis()
+    )

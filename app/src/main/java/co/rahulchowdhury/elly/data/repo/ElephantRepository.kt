@@ -2,6 +2,8 @@ package co.rahulchowdhury.elly.data.repo
 
 import androidx.lifecycle.LiveData
 import co.rahulchowdhury.elly.data.model.local.Elephant
+import co.rahulchowdhury.elly.data.model.local.isStale
+import co.rahulchowdhury.elly.data.model.remote.toElephant
 import co.rahulchowdhury.elly.data.source.local.elephant.ElephantDao
 import co.rahulchowdhury.elly.data.source.remote.elephant.ElephantApiService
 import java.util.concurrent.ExecutorService
@@ -13,7 +15,6 @@ class ElephantRepository(
 ) {
     fun getElephant(elephantName: String): LiveData<Elephant> {
         refreshElephant(elephantName)
-
         return elephantDao.load(elephantName)
     }
 
@@ -21,7 +22,7 @@ class ElephantRepository(
         executor.execute {
             val elephant = elephantDao.hasElephant(elephantName)
 
-            if (elephant == null) {
+            if (elephant == null || elephant.isStale()) {
                 val elephantResponse = elephantApiService.fetchElephant(elephantName).execute().body()
                 elephantResponse?.let {
                     elephantDao.save(it.toElephant())
