@@ -6,8 +6,11 @@ import co.rahulchowdhury.elly.data.model.local.Elephant
 import co.rahulchowdhury.elly.data.repo.ElephantRepository
 
 class ElephantProfileViewModel(
-    elephantRepository: ElephantRepository
+    private val elephantRepository: ElephantRepository
 ) : ViewModel() {
-    private val elephantName: String = "Arjuna"
-    val elephant: LiveData<Elephant> = elephantRepository.getElephant(elephantName)
+    lateinit var elephant: LiveData<Elephant>
+
+    fun loadElephantProfile(elephantName: String) {
+        elephant = elephantRepository.getElephant(elephantName)
+    }
 }
