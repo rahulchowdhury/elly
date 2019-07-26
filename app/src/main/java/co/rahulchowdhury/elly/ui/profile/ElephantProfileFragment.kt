@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import co.rahulchowdhury.elly.R
-import kotlinx.android.synthetic.main.elephant_profile_fragment.*
+import co.rahulchowdhury.elly.databinding.ElephantProfileFragmentBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ElephantProfileFragment : Fragment() {
@@ -17,14 +17,16 @@ class ElephantProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.elephant_profile_fragment, container, false)
-    }
+        val binding: ElephantProfileFragmentBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.elephant_profile_fragment,
+            container,
+            false
+        )
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = elephantProfileViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        elephantProfileViewModel.elephant.observe(viewLifecycleOwner, Observer {
-            apiResponse?.text = "$it:${elephantProfileViewModel.elephant}"
-        })
+        return binding.root
     }
 }
