@@ -1,32 +1,27 @@
 package co.rahulchowdhury.elly.data.repo
 
-import androidx.lifecycle.LiveData
 import co.rahulchowdhury.elly.data.model.local.Elephant
 import co.rahulchowdhury.elly.data.model.local.isStale
 import co.rahulchowdhury.elly.data.model.remote.toElephant
 import co.rahulchowdhury.elly.data.source.local.elephant.ElephantDao
 import co.rahulchowdhury.elly.data.source.remote.elephant.ElephantApiService
-import java.util.concurrent.ExecutorService
 
 class ElephantRepository(
     private val elephantDao: ElephantDao,
-    private val elephantApiService: ElephantApiService,
-    private val executor: ExecutorService
+    private val elephantApiService: ElephantApiService
 ) {
-    fun getElephant(elephantName: String): LiveData<Elephant> {
+    suspend fun getElephant(elephantName: String): Elephant {
         refreshElephant(elephantName)
         return elephantDao.load(elephantName)
     }
 
-    private fun refreshElephant(elephantName: String) {
-        executor.execute {
-            val elephant = elephantDao.hasElephant(elephantName)
+    private suspend fun refreshElephant(elephantName: String) {
+        val elephant = elephantDao.hasElephant(elephantName)
 
-            if (elephant == null || elephant.isStale()) {
-                val elephantResponse = elephantApiService.fetchElephant(elephantName).execute().body()
-                elephantResponse?.let {
-                    elephantDao.save(it.toElephant())
-                }
+        if (elephant == null || elephant.isStale()) {
+            val elephantResponse = elephantApiService.fetchElephant(elephantName)
+            elephantResponse?.let {
+                elephantDao.save(it.toElephant())
             }
         }
     }

@@ -9,11 +9,10 @@ import co.rahulchowdhury.elly.data.source.remote.elephant.ElephantApiService
 import co.rahulchowdhury.elly.ui.profile.ElephantProfileViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import java.util.concurrent.ExecutorService
 
 val elephantModule = module {
     single { provideElephantDao(get()) }
-    single { provideElephantRepository(get(), get(), get()) }
+    single { provideElephantRepository(get(), get()) }
     viewModel { provideElephantProfileViewModel(get()) }
 }
 
@@ -26,10 +25,9 @@ fun provideElephantDao(applicationContext: Application) =
 
 fun provideElephantRepository(
     elephantDao: ElephantDao,
-    elephantApiService: ElephantApiService,
-    executor: ExecutorService
+    elephantApiService: ElephantApiService
 ) =
-    ElephantRepository(elephantDao, elephantApiService, executor)
+    ElephantRepository(elephantDao, elephantApiService)
 
 fun provideElephantProfileViewModel(elephantRepository: ElephantRepository) =
     ElephantProfileViewModel(elephantRepository)

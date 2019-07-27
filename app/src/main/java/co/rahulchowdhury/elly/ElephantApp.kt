@@ -1,7 +1,6 @@
 package co.rahulchowdhury.elly
 
 import android.app.Application
-import co.rahulchowdhury.elly.di.module.appModule
 import co.rahulchowdhury.elly.di.module.elephantModule
 import co.rahulchowdhury.elly.di.module.networkModule
 import org.koin.android.ext.koin.androidContext
@@ -14,7 +13,7 @@ class ElephantApp : Application() {
 
         startKoin {
             androidContext(this@ElephantApp)
-            modules(listOf(appModule, networkModule, elephantModule))
+            modules(listOf(networkModule, elephantModule))
         }
     }
 }
