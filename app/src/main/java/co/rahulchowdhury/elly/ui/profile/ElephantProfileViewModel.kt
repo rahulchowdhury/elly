@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.rahulchowdhury.elly.data.model.local.Elephant
 import co.rahulchowdhury.elly.data.repo.ElephantRepository
+import co.rahulchowdhury.elly.util.logDebug
 import kotlinx.coroutines.launch
 
 class ElephantProfileViewModel(
@@ -16,7 +17,11 @@ class ElephantProfileViewModel(
 
     fun loadElephantProfile(elephantName: String) {
         viewModelScope.launch {
-            _elephant.value = elephantRepository.getElephant(elephantName)
+            try {
+                _elephant.value = elephantRepository.getElephant(elephantName)
+            } catch (exception: Exception) {
+                logDebug("Unable to fetch data")
+            }
         }
     }
 }

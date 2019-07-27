@@ -1,8 +1,9 @@
 package co.rahulchowdhury.elly
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import co.rahulchowdhury.elly.ui.profile.ElephantProfileFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,11 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (savedInstanceState == null) {
-            val elephantProfileFragment = ElephantProfileFragment()
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, elephantProfileFragment)
-                .commit()
+        openProfileButton?.setOnClickListener {
+            startActivity(Intent(this, ElephantProfileActivity::class.java))
         }
     }
 }
