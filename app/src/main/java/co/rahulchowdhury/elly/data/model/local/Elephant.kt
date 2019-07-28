@@ -9,15 +9,15 @@ data class Elephant(
     @PrimaryKey
     val id: String,
     val name: String,
-    val affiliation: String,
-    val species: String,
-    val sex: String,
-    val isFictional: Boolean,
-    val dateOfBirth: String,
-    val dateOfDeath: String,
-    val wikiLink: String,
-    val image: String,
-    val note: String,
+    val affiliation: String = "",
+    val species: String = "",
+    val sex: String = "",
+    val isFictional: Boolean = false,
+    val dateOfBirth: String = "",
+    val dateOfDeath: String = "",
+    val wikiLink: String = "",
+    val image: String = "",
+    val note: String = "",
     val lastFetchTime: Long
 )
 
