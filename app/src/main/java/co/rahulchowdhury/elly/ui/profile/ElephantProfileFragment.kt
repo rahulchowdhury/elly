@@ -1,33 +1,38 @@
 package co.rahulchowdhury.elly.ui.profile
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import co.rahulchowdhury.elly.R
+import co.rahulchowdhury.elly.databinding.ElephantProfileFragmentBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ElephantProfileFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = ElephantProfileFragment()
-    }
-
-    private lateinit var viewModel: ElephantProfileViewModel
+    private val elephantProfileViewModel: ElephantProfileViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.elephant_profile_fragment, container, false)
+        val binding: ElephantProfileFragmentBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.elephant_profile_fragment,
+            container,
+            false
+        )
+
+        binding.viewModel = elephantProfileViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ElephantProfileViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        elephantProfileViewModel.loadElephantProfile("Arjuna")
+    }
 }
