@@ -2,6 +2,7 @@ package co.rahulchowdhury.elly.di.module
 
 import android.app.Application
 import androidx.room.Room
+import co.rahulchowdhury.elly.data.repo.DefaultElephantRepository
 import co.rahulchowdhury.elly.data.repo.ElephantRepository
 import co.rahulchowdhury.elly.data.source.local.elephant.ElephantDao
 import co.rahulchowdhury.elly.data.source.local.elephant.ElephantDatabase
@@ -16,7 +17,9 @@ val elephantModule = module {
     viewModel { provideElephantProfileViewModel(get()) }
 }
 
-fun provideElephantDao(applicationContext: Application) =
+fun provideElephantDao(
+    applicationContext: Application
+): ElephantDao =
     Room.databaseBuilder(
         applicationContext,
         ElephantDatabase::class.java,
@@ -26,8 +29,10 @@ fun provideElephantDao(applicationContext: Application) =
 fun provideElephantRepository(
     elephantDao: ElephantDao,
     elephantApiService: ElephantApiService
-) =
-    ElephantRepository(elephantDao, elephantApiService)
+): ElephantRepository =
+    DefaultElephantRepository(elephantDao, elephantApiService)
 
-fun provideElephantProfileViewModel(elephantRepository: ElephantRepository) =
+fun provideElephantProfileViewModel(
+    elephantRepository: ElephantRepository
+): ElephantProfileViewModel =
     ElephantProfileViewModel(elephantRepository)
