@@ -35,4 +35,5 @@ ext {
     roomVersion = "2.1.0"
     truthVersion = "0.44"
     coroutinesVersion = "1.2.1"
+    mockitoVersion = "2.8.9"
 }
