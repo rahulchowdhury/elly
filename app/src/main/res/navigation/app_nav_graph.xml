@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/app_nav_graph" app:startDestination="@id/elephantListFragment">
+
+    <fragment android:id="@+id/elephantListFragment" android:name="co.rahulchowdhury.elly.ui.list.ElephantListFragment"
+              android:label="ElephantListFragment">
+        <action android:id="@+id/action_elephantListFragment_to_elephantProfileFragment"
+                app:destination="@id/elephantProfileFragment"/>
+    </fragment>
+    <fragment android:id="@+id/elephantProfileFragment"
+              android:name="co.rahulchowdhury.elly.ui.profile.ElephantProfileFragment"
+              android:label="ElephantProfileFragment"/>
+</navigation>
