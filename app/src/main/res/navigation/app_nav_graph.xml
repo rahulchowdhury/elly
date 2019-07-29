@@ -10,5 +10,7 @@
     </fragment>
     <fragment android:id="@+id/elephantProfileFragment"
               android:name="co.rahulchowdhury.elly.ui.profile.ElephantProfileFragment"
-              android:label="ElephantProfileFragment"/>
+              android:label="ElephantProfileFragment">
+        <deepLink android:id="@+id/deepLink" app:uri="elly.co/elephant/{elephantName}"/>
+    </fragment>
 </navigation>

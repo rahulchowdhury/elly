@@ -14,8 +14,10 @@ class ElephantProfileFragment : BaseFragment<ElephantProfileViewModel, ElephantP
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val elephantName = arguments?.getString("elephantName")
+
         if (savedInstanceState == null) {
-            viewModel.loadElephantProfile("Arjuna")
+            viewModel.loadElephantProfile(elephantName ?: "Arjuna")
         }
     }
 }
