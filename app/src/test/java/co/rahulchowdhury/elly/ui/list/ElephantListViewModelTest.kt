@@ -1,33 +1,17 @@
 package co.rahulchowdhury.elly.ui.list
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import co.rahulchowdhury.elly.LiveDataTestUtil.getValue
-import co.rahulchowdhury.elly.MainCoroutineRule
-import co.rahulchowdhury.elly.data.model.local.Elephant
 import co.rahulchowdhury.elly.data.repo.FakeElephantRepository
+import co.rahulchowdhury.elly.seed.elephant.seedElephant
+import co.rahulchowdhury.elly.ui.base.ViewModelTest
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-class ElephantListViewModelTest {
+class ElephantListViewModelTest : ViewModelTest() {
     private lateinit var elephantListViewModel: ElephantListViewModel
     private lateinit var fakeElephantRepository: FakeElephantRepository
-    private val elephant = Elephant(
-        id = "1",
-        name = "Elly",
-        affiliation = "Happy Feet",
-        lastFetchTime = 0,
-        image = "elly-profile.jpg"
-    )
-
-    @ExperimentalCoroutinesApi
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
-
-    @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
+    private val elephant = seedElephant
 
     @Before
     fun setUp() {
