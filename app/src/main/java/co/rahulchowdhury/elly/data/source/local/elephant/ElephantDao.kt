@@ -22,4 +22,7 @@ interface ElephantDao {
 
     @Query("SELECT * FROM elephants WHERE name = :elephantName")
     suspend fun hasElephant(elephantName: String): Elephant?
+
+    @Query("SELECT * FROM elephants WHERE lastFetchTime < :staleTime")
+    suspend fun loadStaleElephants(staleTime: Long): List<Elephant>
 }
