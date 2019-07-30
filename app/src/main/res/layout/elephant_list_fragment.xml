@@ -2,7 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <import type="co.rahulchowdhury.elly.data.model.local.Elephant"/>
+        <variable
+                name="viewModel"
+                type="co.rahulchowdhury.elly.ui.list.ElephantListViewModel"
+        />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +22,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="View Arjuna"
+        />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/openProfileButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                android:text="@{viewModel.elephants.toString()}"
         />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

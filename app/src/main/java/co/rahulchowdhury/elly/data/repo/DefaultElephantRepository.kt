@@ -11,12 +11,22 @@ class DefaultElephantRepository(
     private val elephantApiService: ElephantApiService
 ) : ElephantRepository {
     override suspend fun getElephants(): List<Elephant> {
-        return listOf()
+        refreshElephantList()
+        return elephantDao.loadAll()
     }
 
     override suspend fun getElephant(elephantName: String): Elephant {
         refreshElephant(elephantName)
         return elephantDao.load(elephantName)
+    }
+
+    private suspend fun refreshElephantList() {
+        val elephantListResponse = elephantApiService.fetchElephants()
+        val normalisedElephants = elephantListResponse
+            .filter { it.name != null }
+            .map { it.toElephant() }
+
+        elephantDao.saveMultiple(normalisedElephants)
     }
 
     private suspend fun refreshElephant(elephantName: String) {

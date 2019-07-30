@@ -11,8 +11,14 @@ interface ElephantDao {
     @Insert(onConflict = REPLACE)
     suspend fun save(elephant: Elephant)
 
+    @Insert(onConflict = REPLACE)
+    suspend fun saveMultiple(elephantList: List<Elephant>)
+
     @Query("SELECT * FROM elephants WHERE name = :elephantName")
     suspend fun load(elephantName: String): Elephant
+
+    @Query("SELECT * FROM elephants")
+    suspend fun loadAll(): List<Elephant>
 
     @Query("SELECT * FROM elephants WHERE name = :elephantName")
     suspend fun hasElephant(elephantName: String): Elephant?
