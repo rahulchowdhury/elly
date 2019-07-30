@@ -1,19 +1,18 @@
-package co.rahulchowdhury.elly.ui.profile
+package co.rahulchowdhury.elly.ui.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import co.rahulchowdhury.elly.LiveDataTestUtil.getValue
 import co.rahulchowdhury.elly.MainCoroutineRule
 import co.rahulchowdhury.elly.data.model.local.Elephant
 import co.rahulchowdhury.elly.data.repo.FakeElephantRepository
-import co.rahulchowdhury.elly.exception.base.InvalidArgumentException
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class ElephantProfileViewModelTest {
-    private lateinit var elephantProfileViewModel: ElephantProfileViewModel
+class ElephantListViewModelTest {
+    private lateinit var elephantListViewModel: ElephantListViewModel
     private lateinit var fakeElephantRepository: FakeElephantRepository
     private val elephant = Elephant(
         id = "1",
@@ -38,30 +37,23 @@ class ElephantProfileViewModelTest {
             elephant = elephant
         )
 
-        elephantProfileViewModel = ElephantProfileViewModel(fakeElephantRepository)
+        elephantListViewModel = ElephantListViewModel(fakeElephantRepository)
     }
 
     @Test
-    fun `should get profile details for a provided elephant name`() {
-        elephantProfileViewModel.loadElephantProfile(elephant.name)
-        val loadedElephant = getValue(elephantProfileViewModel.elephant)
+    fun `should provide a list of elephants`() {
+        elephantListViewModel.loadElephants()
+        val elephants = getValue(elephantListViewModel.elephants)
 
-        assertThat(loadedElephant.id).isEqualTo(elephant.id)
-        assertThat(loadedElephant.name).isEqualTo(elephant.name)
-        assertThat(loadedElephant.image).isEqualTo(elephant.image)
-        assertThat(getValue(elephantProfileViewModel.networkError)).isFalse()
-    }
-
-    @Test(expected = InvalidArgumentException::class)
-    fun `should throw InvalidArgumentException for empty elephant name`() {
-        elephantProfileViewModel.loadElephantProfile("")
+        assertThat(elephants).hasSize(1)
+        assertThat(elephants[0].name).isEqualTo(elephant.name)
     }
 
     @Test
     fun `should set network error to true for no network api call`() {
         fakeElephantRepository.disableNetwork()
-        elephantProfileViewModel.loadElephantProfile(elephant.name)
+        elephantListViewModel.loadElephants()
 
-        assertThat(getValue(elephantProfileViewModel.networkError)).isTrue()
+        assertThat(getValue(elephantListViewModel.networkError)).isTrue()
     }
 }

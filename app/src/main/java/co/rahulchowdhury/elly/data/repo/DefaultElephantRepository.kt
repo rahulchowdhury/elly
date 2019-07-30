@@ -10,6 +10,10 @@ class DefaultElephantRepository(
     private val elephantDao: ElephantDao,
     private val elephantApiService: ElephantApiService
 ) : ElephantRepository {
+    override suspend fun getElephants(): List<Elephant> {
+        return listOf()
+    }
+
     override suspend fun getElephant(elephantName: String): Elephant {
         refreshElephant(elephantName)
         return elephantDao.load(elephantName)
