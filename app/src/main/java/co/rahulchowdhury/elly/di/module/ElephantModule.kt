@@ -6,6 +6,7 @@ import co.rahulchowdhury.elly.data.repo.DefaultElephantRepository
 import co.rahulchowdhury.elly.data.repo.ElephantRepository
 import co.rahulchowdhury.elly.data.source.local.elephant.ElephantDao
 import co.rahulchowdhury.elly.data.source.local.elephant.ElephantDatabase
+import co.rahulchowdhury.elly.data.source.local.elephant.PersistedElephantDataSource
 import co.rahulchowdhury.elly.data.source.remote.elephant.ElephantApiService
 import co.rahulchowdhury.elly.ui.list.ElephantListViewModel
 import co.rahulchowdhury.elly.ui.profile.ElephantProfileViewModel
@@ -14,6 +15,7 @@ import org.koin.dsl.module
 
 val elephantModule = module {
     single { provideElephantDao(get()) }
+    single { providePersistedElephantDataSource(get()) }
     single { provideElephantRepository(get(), get()) }
     viewModel { provideElephantProfileViewModel(get()) }
     viewModel { provideElephantListViewModel(get()) }
@@ -28,11 +30,16 @@ fun provideElephantDao(
         "elephant-database"
     ).build().elephantDao()
 
+fun providePersistedElephantDataSource(
+    elephantDao: ElephantDao
+): PersistedElephantDataSource =
+    PersistedElephantDataSource(elephantDao)
+
 fun provideElephantRepository(
-    elephantDao: ElephantDao,
+    persistedElephantDataSource: PersistedElephantDataSource,
     elephantApiService: ElephantApiService
 ): ElephantRepository =
-    DefaultElephantRepository(elephantDao, elephantApiService)
+    DefaultElephantRepository(persistedElephantDataSource, elephantApiService)
 
 fun provideElephantProfileViewModel(
     elephantRepository: ElephantRepository
