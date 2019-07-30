@@ -2,6 +2,7 @@ package co.rahulchowdhury.elly.data.model.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import co.rahulchowdhury.elly.util.Constants
 import java.util.concurrent.TimeUnit
 
 @Entity(tableName = "elephants")
@@ -22,4 +23,6 @@ data class Elephant(
 )
 
 fun Elephant.isStale() =
-    TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis() - lastFetchTime) > 12
+    TimeUnit
+        .MILLISECONDS
+        .toHours(System.currentTimeMillis() - lastFetchTime) > Constants.Time.FRESHNESS_PERIOD_IN_HOURS
