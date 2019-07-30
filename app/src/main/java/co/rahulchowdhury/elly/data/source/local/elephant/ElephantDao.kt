@@ -15,13 +15,10 @@ interface ElephantDao {
     suspend fun saveMultiple(elephantList: List<Elephant>)
 
     @Query("SELECT * FROM elephants WHERE name = :elephantName")
-    suspend fun load(elephantName: String): Elephant
+    suspend fun load(elephantName: String): Elephant?
 
     @Query("SELECT * FROM elephants")
     suspend fun loadAll(): List<Elephant>
-
-    @Query("SELECT * FROM elephants WHERE name = :elephantName")
-    suspend fun hasElephant(elephantName: String): Elephant?
 
     @Query("SELECT * FROM elephants WHERE lastFetchTime < :staleTime")
     suspend fun loadStaleElephants(staleTime: Long): List<Elephant>
