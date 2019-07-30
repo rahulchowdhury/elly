@@ -16,7 +16,7 @@ val elephantModule = module {
     single { provideElephantDao(get()) }
     single { provideElephantRepository(get(), get()) }
     viewModel { provideElephantProfileViewModel(get()) }
-    viewModel { provideElephantListViewModel() }
+    viewModel { provideElephantListViewModel(get()) }
 }
 
 fun provideElephantDao(
@@ -39,4 +39,7 @@ fun provideElephantProfileViewModel(
 ): ElephantProfileViewModel =
     ElephantProfileViewModel(elephantRepository)
 
-fun provideElephantListViewModel(): ElephantListViewModel = ElephantListViewModel()
+fun provideElephantListViewModel(
+    elephantRepository: ElephantRepository
+): ElephantListViewModel =
+    ElephantListViewModel(elephantRepository)

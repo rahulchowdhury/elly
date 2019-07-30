@@ -7,6 +7,14 @@ class FakeElephantRepository : ElephantRepository {
     private val elephants = mutableMapOf<String, Elephant>()
     private var networkAccess = true
 
+    override suspend fun getElephants(): List<Elephant> {
+        if (!networkAccess) {
+            throw UnknownHostException()
+        }
+
+        return ArrayList(elephants.values)
+    }
+
     override suspend fun getElephant(elephantName: String): Elephant {
         if (!networkAccess) {
             throw UnknownHostException()
