@@ -19,14 +19,14 @@ class DefaultElephantRepository(
     }
 
     private suspend fun refreshElephantListIfNeeded() {
-        if (localElephantDataSource.hasStaleElephants()) {
+        if (localElephantDataSource.hasStaleOrNoElephants()) {
             val elephantList = remoteElephantDataSource.fetchElephants()
             localElephantDataSource.saveElephants(elephantList)
         }
     }
 
     private suspend fun refreshElephantIfNeeded(elephantName: String) {
-        if (localElephantDataSource.hasStaleOrAbsent(elephantName)) {
+        if (localElephantDataSource.hasStaleOrNoElephant(elephantName)) {
             val elephant = remoteElephantDataSource.fetchElephant(elephantName)
             localElephantDataSource.saveElephant(elephant)
         }

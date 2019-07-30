@@ -13,14 +13,15 @@ class PersistedElephantDataSource(
     override suspend fun getElephant(elephantName: String): Elephant =
         elephantDao.load(elephantName) ?: throw InvalidArgumentException("Elephant not found")
 
-    override suspend fun hasStaleElephants(): Boolean {
+    override suspend fun hasStaleOrNoElephants(): Boolean {
         val staleTime = System.currentTimeMillis() - Constants.Time.FRESHNESS_PERIOD_IN_MILLIS
+        val elephants = elephantDao.loadAll()
         val staleElephants = elephantDao.loadStaleElephants(staleTime)
 
-        return staleElephants.isNotEmpty()
+        return elephants.isEmpty() || staleElephants.isNotEmpty()
     }
 
-    override suspend fun hasStaleOrAbsent(elephantName: String): Boolean {
+    override suspend fun hasStaleOrNoElephant(elephantName: String): Boolean {
         val elephant = elephantDao.load(elephantName)
         return elephant == null || elephant.isStale()
     }

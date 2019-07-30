@@ -7,9 +7,9 @@ interface LocalElephantDataSource {
 
     suspend fun getElephant(elephantName: String): Elephant
 
-    suspend fun hasStaleElephants(): Boolean
+    suspend fun hasStaleOrNoElephants(): Boolean
 
-    suspend fun hasStaleOrAbsent(elephantName: String): Boolean
+    suspend fun hasStaleOrNoElephant(elephantName: String): Boolean
 
     suspend fun saveElephant(elephant: Elephant)
 
