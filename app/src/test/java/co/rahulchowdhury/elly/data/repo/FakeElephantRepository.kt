@@ -8,6 +8,10 @@ class FakeElephantRepository : ElephantRepository {
     private var networkAccess = true
 
     override suspend fun getElephants(): List<Elephant> {
+        if (!networkAccess) {
+            throw UnknownHostException()
+        }
+
         return ArrayList(elephants.values)
     }
 
