@@ -9,3 +9,12 @@ val seedElephant = Elephant(
     lastFetchTime = 0,
     image = "elly-profile.jpg"
 )
+
+val seedElephants = listOf(
+    seedElephant,
+    Elephant(
+        id = "2",
+        name = "Jack",
+        lastFetchTime = 0
+    )
+)
