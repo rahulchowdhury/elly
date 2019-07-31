@@ -3,6 +3,7 @@ package co.rahulchowdhury.elly.data.repo
 import co.rahulchowdhury.elly.data.model.local.Elephant
 import co.rahulchowdhury.elly.data.source.local.elephant.LocalElephantDataSource
 import co.rahulchowdhury.elly.data.source.remote.elephant.RemoteElephantDataSource
+import co.rahulchowdhury.elly.exception.base.InvalidArgumentException
 
 class DefaultElephantRepository(
     private val localElephantDataSource: LocalElephantDataSource,
@@ -14,6 +15,10 @@ class DefaultElephantRepository(
     }
 
     override suspend fun getElephant(elephantName: String): Elephant {
+        if (elephantName.isEmpty()) {
+            throw InvalidArgumentException("Elephant name cannot be blank")
+        }
+
         refreshElephantIfNeeded(elephantName)
         return localElephantDataSource.getElephant(elephantName)
     }
