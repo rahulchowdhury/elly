@@ -1,10 +1,14 @@
 package co.rahulchowdhury.elly.ui.list
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import co.rahulchowdhury.elly.R
 import co.rahulchowdhury.elly.data.model.local.Elephant
 import co.rahulchowdhury.elly.databinding.ElephantListItemBinding
 
@@ -21,18 +25,28 @@ class ElephantListAdapter : ListAdapter<Elephant, ElephantListAdapter.ViewHolder
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val elephant = getItem(position)
-        holder.bind(elephant)
+        holder.bind(elephant, createClickListener(elephantName = elephant.name))
     }
 
     class ViewHolder(
         private val elephantListItemBinding: ElephantListItemBinding
     ) : RecyclerView.ViewHolder(elephantListItemBinding.root) {
 
-        fun bind(item: Elephant) {
+        fun bind(item: Elephant, listener: View.OnClickListener) {
             elephantListItemBinding.apply {
                 elephant = item
+                clickListener = listener
                 executePendingBindings()
             }
+        }
+    }
+
+    private fun createClickListener(elephantName: String): View.OnClickListener {
+        return View.OnClickListener {
+            val navArgs = Bundle()
+            navArgs.putString("elephantName", elephantName)
+
+            it.findNavController().navigate(R.id.elephantProfileFragment, navArgs)
         }
     }
 }

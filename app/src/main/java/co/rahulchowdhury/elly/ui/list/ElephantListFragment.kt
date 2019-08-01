@@ -18,13 +18,13 @@ class ElephantListFragment : BaseFragment<ElephantListViewModel, ElephantListFra
 
         if (savedInstanceState == null) {
             viewModel.loadElephants()
-
-            val elephantListAdapter = ElephantListAdapter()
-            elephantList?.adapter = elephantListAdapter
-
-            viewModel.elephants.observe(viewLifecycleOwner, Observer { elephants ->
-                if (elephants != null) elephantListAdapter.submitList(elephants)
-            })
         }
+
+        val elephantListAdapter = ElephantListAdapter()
+        elephantList?.adapter = elephantListAdapter
+
+        viewModel.elephants.observe(viewLifecycleOwner, Observer { elephants ->
+            if (elephants != null) elephantListAdapter.submitList(elephants)
+        })
     }
 }

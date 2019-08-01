@@ -3,13 +3,18 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
+                name="clickListener"
+                type="android.view.View.OnClickListener"/>
+        <variable
                 name="elephant"
                 type="co.rahulchowdhury.elly.data.model.local.Elephant"
         />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:onClick="@{clickListener}"
+    >
 
         <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/elephantPhoto"
