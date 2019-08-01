@@ -2,7 +2,7 @@ package co.rahulchowdhury.elly.ui.list
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.Navigation
+import androidx.lifecycle.Observer
 import co.rahulchowdhury.elly.R
 import co.rahulchowdhury.elly.databinding.ElephantListFragmentBinding
 import co.rahulchowdhury.elly.ui.base.BaseFragment
@@ -16,10 +16,19 @@ class ElephantListFragment : BaseFragment<ElephantListViewModel, ElephantListFra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        openProfileButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.elephantProfileFragment))
+        val elephantListAdapter = ElephantListAdapter()
+        elephantList?.adapter = elephantListAdapter
+
+        subscribeToElephantListData(elephantListAdapter)
 
         if (savedInstanceState == null) {
             viewModel.loadElephants()
         }
+    }
+
+    private fun subscribeToElephantListData(elephantListAdapter: ElephantListAdapter) {
+        viewModel.elephants.observe(viewLifecycleOwner, Observer { elephants ->
+            if (elephants != null) elephantListAdapter.submitList(elephants)
+        })
     }
 }
