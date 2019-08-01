@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.rahulchowdhury.elly.R
 import co.rahulchowdhury.elly.data.model.local.Elephant
 import co.rahulchowdhury.elly.databinding.ElephantListItemBinding
+import co.rahulchowdhury.elly.util.Constants
 
 class ElephantListAdapter : ListAdapter<Elephant, ElephantListAdapter.ViewHolder>(ElephantDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,7 +45,7 @@ class ElephantListAdapter : ListAdapter<Elephant, ElephantListAdapter.ViewHolder
     private fun createClickListener(elephantName: String): View.OnClickListener {
         return View.OnClickListener {
             val navArgs = Bundle()
-            navArgs.putString("elephantName", elephantName)
+            navArgs.putString(Constants.Arguments.ELEPHANT_NAME, elephantName)
 
             it.findNavController().navigate(R.id.elephantProfileFragment, navArgs)
         }

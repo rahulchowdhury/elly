@@ -5,6 +5,7 @@ import android.view.View
 import co.rahulchowdhury.elly.R
 import co.rahulchowdhury.elly.databinding.ElephantProfileFragmentBinding
 import co.rahulchowdhury.elly.ui.base.BaseFragment
+import co.rahulchowdhury.elly.util.Constants
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ElephantProfileFragment : BaseFragment<ElephantProfileViewModel, ElephantProfileFragmentBinding>() {
@@ -14,7 +15,7 @@ class ElephantProfileFragment : BaseFragment<ElephantProfileViewModel, ElephantP
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val elephantName = arguments?.getString("elephantName")
+        val elephantName = arguments?.getString(Constants.Arguments.ELEPHANT_NAME)
 
         if (savedInstanceState == null) {
             viewModel.loadElephantProfile(elephantName ?: "Arjuna")

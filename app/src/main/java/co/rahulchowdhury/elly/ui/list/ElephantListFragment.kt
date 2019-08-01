@@ -16,13 +16,17 @@ class ElephantListFragment : BaseFragment<ElephantListViewModel, ElephantListFra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
-            viewModel.loadElephants()
-        }
-
         val elephantListAdapter = ElephantListAdapter()
         elephantList?.adapter = elephantListAdapter
 
+        subscribeToElephantListData(elephantListAdapter)
+
+        if (savedInstanceState == null) {
+            viewModel.loadElephants()
+        }
+    }
+
+    private fun subscribeToElephantListData(elephantListAdapter: ElephantListAdapter) {
         viewModel.elephants.observe(viewLifecycleOwner, Observer { elephants ->
             if (elephants != null) elephantListAdapter.submitList(elephants)
         })
